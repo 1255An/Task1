@@ -1,40 +1,31 @@
+
 public class Main {
     public static void main(String[] args) {
-        Book[] library = {new Book("Eugene Onegin", "Alexander Sergeevich Pushkin"),
-                new Book("Fathers and Sons", "Ivan Sergeevich Turgenev"),
-                new Book("The Idiot", "Fyedor Michailovich Dostoevsky")};
 
-        System.out.println(convertArrayToString(library, ",\n"));
+        Author author1 = new Author("alexander", "Pushkin", "Sergeevich");
+        Author author2 = new Author("Ivan", "Turgenev", "Sergeevich");
+
+        Book book1 = new Book("eugene Onegin", author1);
+        Book book2 = new Book("Fathers and Sons", author2);
+
+        Book[] library = {book1, book2};
+
+        printBook(library);
     }
 
-    public static String convertArrayToString(Book[]library, String delimiter) {
-        StringBuilder sb = new StringBuilder();
-        for(Book obj:library) {
-            sb.append(obj.toString()).append(delimiter);
-        } return sb.substring(0,sb.length()-1);
-    }
-}
 
-class Book {
-    private String bookName;
-    private String authorName;
-
-    public Book(String bookName, String authorName) {
-        this.bookName = bookName;
-        this.authorName = authorName;
+    public static void printBook(Book[] library) {
+        for (Book b : library) {
+            System.out.println("\"" + capitalize(b.getBookName()) + "\": " +
+                    capitalize(b.getAuthor().getFirstName()) + " " + b.getAuthor().getMiddleName() +
+                    " " + b.getAuthor().getLastName());
+        }
     }
 
-    public String getBookName() {
-        return bookName;
-    }
-
-    public String authorName() {
-        return authorName;
-    }
-
-    @Override
-    public String toString() {
-        String result = "\"" + this.bookName + "\":" + this.authorName;
-        return result;
+    public static String capitalize(String name) {
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 }
+
+
+
